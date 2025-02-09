@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <style>
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) !important;
+        }
+    </style>
+</head>
+
+<body style="margin: 0px">
+   
+    <div style="text-align:center;     position: sticky;
+    top: 0;
+    margin: 0px;
+    padding: 1%;
+    background: #100f0f; color: white;"> <h1 style="margin: 0px">ShopNest</h1> </div>
+  
+    
+    <h1 id="loading">loading</h1>
+    
+    <div id="container" style="display:flex;flex-wrap:wrap">
+        
+    </div>
+
+    <script>
+       
+        //   https://fakestoreapi.com/products
+        fetch("https://fakestoreapi.com/products").then((res) => {
+            return res.json()
+        }).then((res) => {
+            console.log(res)
+
+            document.getElementById("loading").style.display="none"
+            addElementsToH1(res)
+        })
+
+        //  for(let i=0;i<arr.length;i++){
+        //     console.log(arr[i])
+        function addElementsToH1(res) {
+
+            for (let i = 0; i < res.length; i++) {
+                const createDiv = document.createElement("div")
+
+                createDiv.classList.add("card")
+                createDiv.style.width = "30%"
+                createDiv.style.textAlign = "center"
+                createDiv.style.boxShadow = "0 4px 8px 0 rgba(0,0,0,0.2)"
+                createDiv.style.transition = "0.3s"
+                createDiv.style.margin = "20px"
+                createDiv.style.borderRadius="20px"
+
+
+
+                const img = document.createElement("img")
+                img.src = res[i].image
+                img.width = 150
+                img.height = 150
+
+
+                createDiv.append(img)
+
+                const createH1 = document.createElement("p")
+                createH1.innerText = res[i].title
+
+
+                createDiv.append(createH1)
+
+                const elementPrice = document.createElement("h2")
+                elementPrice.innerText = "$" + res[i].price
+
+
+                createDiv.append(elementPrice)
+
+                document.getElementById("container").append(createDiv)
+            }
+
+        }
+
+        // const arr = [{ name: "kishu", age: 30 }, { name: "pooja", age: 20 }]
+        // addElementsToH1(arr)
+
+
+    </script>
+</body>
+
+</html>
